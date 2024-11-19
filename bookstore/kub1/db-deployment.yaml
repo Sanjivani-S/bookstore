@@ -1,0 +1,66 @@
+## db-deployment.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres-host #db #postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: DB_NAME # POSTGRES_USER
+          value: bookstore_db # postgres # replace with your user
+        - name: DB_USER  # POSTGRES_PASSWORD
+          value: postgres # postgres_password # replace with your password
+        - name: DB_PASSWORD # POSTGRES_DB
+          value: postgres_password # bookstore_db # replace with your database name
+        - name: DB_HOST # hostname for the SERVICE in kubernetes
+          value: postgres-host   # localhost - does not work with docker
+        - name: DB_PORT # default postgres port
+          value: '5432'
+        # - name: POSTGRES_USER
+        #   value: postgres # replace with your user
+        # - name: POSTGRES_PASSWORD
+        #   value: postgres_password # replace with your password
+        # - name: POSTGRES_DB
+        #   value: bookstore_db # replace with your database name
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-host # match with DB_HOST # db # ok to be db? or should it match DB_HOST
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: postgres

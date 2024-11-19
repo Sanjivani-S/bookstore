@@ -1,0 +1,254 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+. : File C:\Users\sanju\OneDrive\Documents\WindowsPowerShell\profile.ps1 cannot be loaded because running scripts is disabled on
+this system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:3
++ . 'C:\Users\sanju\OneDrive\Documents\WindowsPowerShell\profile.ps1'
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+PS C:\Users\sanju> .\goto_folder.bat
+
+C:\Users\sanju>cd C:\Sanjivani\BTH_cloud\bookstore
+
+C:\Sanjivani\BTH_cloud\bookstore>conda activate Env1
+PS C:\Users\sanju> pwd
+
+Path
+----
+C:\Users\sanju
+
+
+PS C:\Users\sanju> cd C:\Sanjivani\BTH_cloud\bookstore
+PS C:\Sanjivani\BTH_cloud\bookstore> dor
+dor : The term 'dor' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of
+the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ dor
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (dor:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Sanjivani\BTH_cloud\bookstore> dir
+
+
+    Directory: C:\Sanjivani\BTH_cloud\bookstore
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12/11/2024     17:42                book
+d-----        12/11/2024     12:50                bookstore
+d-----        12/11/2024     17:30                docker
+d-----        13/11/2024     14:35                kubernetes
+d-----        12/11/2024     17:42                order
+-a----        12/11/2024     14:51         143360 db.sqlite3
+-a----        13/11/2024     14:11            952 docker-compose.yml
+-a----        12/11/2024     19:48            554 dockerfile
+-a----        13/11/2024     10:50             49 login details.txt
+-a----        12/11/2024     12:46            687 manage.py
+-a----        12/11/2024     17:36          61778 own_notes.txt
+-a----        12/11/2024     21:36         139695 own_notes1.txt
+-a----        13/11/2024     11:56          37840 own_notes2.txt
+-a----        13/11/2024     15:28          17882 own_notes3.txt
+-a----        12/11/2024     17:42            472 requirements.txt
+
+
+PS C:\Sanjivani\BTH_cloud\bookstore> docker stop $(docker ps -q)
+f8f63be10362
+669527a85108
+e0a1518bfca6
+1777fe2bda33
+61369e6cce5f
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rm $(docker ps -a -q)
+8d3778674d4e
+4514c2554d2e
+264032c3a13e
+92de51e54ebb
+ddfd29e99661
+aa00fe23d8dc
+ee9eb57d2427
+c689e022f63e
+3d61a66920d0
+a9d36a6f2c3f
+b18c19f78818
+Error response from daemon: cannot remove container "/k8s_db_postgres-745c8bc55-flkq4_default_d90b9a6e-0e7f-483d-81a6-7c47d6eee0c6_2": container is running: stop the container before removing or force remove
+Error response from daemon: cannot remove container "/k8s_books-service_books-service-56b764cbb6-tvr4z_default_2da467a7-af3b-4b2b-aa74-a7428faa8477_2": container is running: stop the container before removing or force remove
+Error response from daemon: cannot remove container "/k8s_books-service_books-service-56b764cbb6-6kzl9_default_a8ee01b0-a3f5-4ca5-9553-810b57e01aaa_2": container is running: stop the container before removing or force remove
+Error response from daemon: cannot remove container "/k8s_orders-service_orders-service-5945744566-f9br9_default_3de7368e-5512-43ba-8db7-f8451f9493f5_2": container is running: stop the container before removing or force remove
+Error response from daemon: cannot remove container "/k8s_orders-service_orders-service-5945744566-mcv8x_default_eb151d61-a653-44c6-9616-b4fc1053d1dc_2": container is running: stop the container before removing or force remove
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rm $(docker ps -a -q -f)
+flag needs an argument: 'f' in -f
+See 'docker ps --help'.
+"docker rm" requires at least 1 argument.
+See 'docker rm --help'.
+
+Usage:  docker rm [OPTIONS] CONTAINER [CONTAINER...]
+
+Remove one or more containers
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rm -f $(docker ps -a -q)
+c47d08481a6f
+e67643bc8ace
+f6dae0688139
+4cbfa8ced6dc
+e5a2c2d55ffe
+PS C:\Sanjivani\BTH_cloud\bookstore> docker ps -q -a
+23d333544893
+0c87fe86a462
+0dcc4bede151
+6b6aaa1cc279
+cfcaade36b65
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rm -f $(docker ps -a -q)
+23d333544893
+0c87fe86a462
+0dcc4bede151
+6b6aaa1cc279
+cfcaade36b65
+PS C:\Sanjivani\BTH_cloud\bookstore> docker ps -q -a
+cdff98266372
+9a78f9539976
+3afd4c6e73c3
+6054b0bb9b2e
+ace40d0776bb
+PS C:\Sanjivani\BTH_cloud\bookstore> docker stop $(docker ps -q)       # Stop all running containers
+cdff98266372
+9a78f9539976
+3afd4c6e73c3
+6054b0bb9b2e
+ace40d0776bb
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rm $(docker ps -a -q)      # Remove all containers
+"docker rm" requires at least 1 argument.
+See 'docker rm --help'.
+
+Usage:  docker rm [OPTIONS] CONTAINER [CONTAINER...]
+
+Remove one or more containers
+PS C:\Sanjivani\BTH_cloud\bookstore> docker rmi $(docker images -q)    # Remove all images (optional)
+Untagged: bookstore-orders-service:latest
+Deleted: sha256:12aeb91f4b5ab2dbb5fff372a429b9ac8df0b8f3c7d897092eeb072ec612b5ea
+Untagged: bookstore-books-service:latest
+Deleted: sha256:2b0f68b9b9566cc66c7dd67b420a7974993bdda38b418c00541e0710cd3118b0
+Untagged: bookstore-web:latest
+Deleted: sha256:e8c7a21635598266cc30d4575083d8e88dc13d1f0a76f8f5da39b0523b28aeba
+Deleted: sha256:447dbe644ec6fb3f3f2d8b2d8b9503b7b76cf9667d422609a940507651d3efb2
+Deleted: sha256:0ef239592be087da2f5c7b313dab13c165c4f80a955f12acd33b691bf4f0e7e7
+Untagged: corpusgetter:latest
+Deleted: sha256:bed6e933d768a6dd99c2c3650d733ee17ce04bcfcae5360f97afa4231d419e00
+Untagged: mongo:latest
+Untagged: mongo@sha256:da1dbe035f889c320be0fd3f113c76dd71c3a87bbfcfaee008d014e7ade17e3b
+Deleted: sha256:c51fa15469cf87ad6195a5c649991bf52a3af8ed749fa8555c7f2e8abe554a7f
+Deleted: sha256:64bcdf7ca4b923d33f91afe833d64fed424b426cc2a9c9da1a37688b1417ae8b
+Deleted: sha256:bb50e4eec5a60c2f7ffdba24744859f6707a42e2a601239a07a9741ee43eada1
+Deleted: sha256:dc5fc6212c8f2b11ca5cab2e56388b3055b3b52915efe39b2a045d56f5cfcecf
+Deleted: sha256:00ace50768b82ffe9a9423c0f2b5b533f59681d3c52ba98aeb232318d317f2bb
+Deleted: sha256:fc455d872d253203a8cf8c7359ab7f51142566ff7751ef3303761d30054f14e8
+Deleted: sha256:c8b1c67532efa1e8fb75aeff7d31f271031728001294174e10318275c464ce6a
+Deleted: sha256:16ff9c0f63e7ddee575ca82b8914a081d63e5353b8127b774b29c39432e53478
+Deleted: sha256:ba8dbc5b24b59c2e6aff3639f32c5402af5e30be686342d08925ad852bd8c7c4
+Untagged: qfworker:latest
+Deleted: sha256:3d0e27bb9a886409e6ca7580e08cc12aea798b60968e0fd7c7490314fc64f241
+Untagged: qfapp:latest
+Deleted: sha256:4e4348a78c98436f6f8ca1750fa5b419d252c218ede5f109465d1b7ca06e5379
+Untagged: qfstandalone:latest
+Deleted: sha256:a3b096d2feb3ee6d61a4c748067c5c34f947038678fb8f9d67f67cb6049b28c3
+Untagged: mongo@sha256:244afb1488edfc42aaa8ffa6153393bbc075d63516ab0305daa2eaa35241eb52
+Deleted: sha256:576225b73f775759893e4ae91c3f02426d272b1155d9102303d198419b08ca20
+Deleted: sha256:71cfaaa987423bed0f040f7e34c952507d638ee8f3661a72653b0c60e62d219e
+Deleted: sha256:f88175e1ee284507c2f540dac20d607eba8814816fbcbaeaf0662a12a44447d6
+Deleted: sha256:c736ae402df8eae97f58ef7b15d79433aacf60acbb5e8f89bd22b6fc1ea59229
+Deleted: sha256:3a7b1673d6134cf47224604c57d481d42b683395fd0c519bbaad65e7afaae895
+Deleted: sha256:ea544431ce2a2a93ac1d6c7a08b234a97559e0085d8635f87b7eda05693bfc3f
+Deleted: sha256:4c98659b3d9cb29c9c1649840f548f6a6446d146f7514d2faa98e019fc420cdb
+Deleted: sha256:566d9fe31cc551583e8dc10386afc8f17f8f07b3b2854eabd86c59e36188331b
+Deleted: sha256:2573e0d8158209ed54ab25c87bcdcb00bd3d2539246960a3d592a1c599d70465
+Untagged: postgres:13
+Untagged: postgres@sha256:1c946b371985e656e06b62dc4a8d25b9d7485a4b551b361f92a67825cebe72ea
+Deleted: sha256:3dbccaeb068ece68f09b212ff56736ae5feadcea380e30d15c8617eb596361b8
+Deleted: sha256:5e54eb9a487c958c4620cc6acd97d7d9c1e036246aa659fb81856b5bd08c611d
+Deleted: sha256:cbb4549a51723b21cd3dd1c932478c4d03386f47644d114b44ea366fb56c9bf8
+Deleted: sha256:08b075ecaa612134e048d9bf79929aa97f76a16098c0542565908bf4a4243bdc
+Deleted: sha256:af53bd24841dcd31b8a7e60f70a1dee431c7e3a5fb241e069fbbc189179a70d4
+Deleted: sha256:6b4eee76c17bea0c9fd7c39f7fa122defd1fab847e9043b8a0140391c95bb60c
+Deleted: sha256:f388eb04c03d72bdb51f6280c92815768e7fb86a42e8fb70ede34e84bdc04b89
+Deleted: sha256:460a1b10973be24fc9b084d1d99e77bce7de49400395d0dbb9512fe5884f605e
+Deleted: sha256:cd417254b86aa3ae535638688c732c271a67c25494935086d55e66a9393a98c2
+Deleted: sha256:179b808d31d6692e5a96c8d4cd8d930624cb9be29e40b633ebdd5668041034b0
+Deleted: sha256:5bb056f2185945ea53f26b67a556e196fb54df3525488e620cabe13df4da04f3
+Deleted: sha256:ea56b1a365a3108567986e0236bb0f05368dc5c6daf8e59ced44e8da36eca6c6
+Deleted: sha256:b79a71847bee0101568839b383247db356e82433328c6d2740c3b38d3c467980
+Deleted: sha256:dd5cb0e015f6681bff4c5d4eba5ee3a491cbd41c283e5883f9fa963f1f1baf79
+Untagged: redis:alpine
+Untagged: redis@sha256:c35af3bbcef51a62c8bae5a9a563c6f1b60d7ebaea4cb5a3ccbcc157580ae098
+Deleted: sha256:7d06252fad43690f61cbb858628b933fd85f048aaba4c05e577274b2c77cd7cb
+Deleted: sha256:f84d060cad0ab71233833c557876af2f215f0fefec722460626113bf1b752266
+Deleted: sha256:3e0fdfa6c9211180cd33f8545d7e2190a791ee23e69ae2e1017e082db07fdb85
+Deleted: sha256:95f5267d1a49d63f3ada2c6c7234cb31d68ce6b0d4c7ea53bea0f9f1de1e3067
+Deleted: sha256:e85af1712aa07e2732cad887d8027efaeb98d4579cdc2d55d3f6ca9dd729bf34
+Deleted: sha256:c37a6e8374e357826817411abebbb6febe86f61d9624b31d8d5ddf0654b05544
+Deleted: sha256:71aeab11bf660ddfb7e60541a8902bcb1eae50d11ad3095f66f087993a4ec5b5
+Deleted: sha256:9efb0ed04a8a6b06d559156cc0a765af5fd90ef8045508af90c40fa15c4a50ce
+Untagged: docker/desktop-kubernetes:kubernetes-v1.30.2-cni-v1.4.0-critools-v1.29.0-cri-dockerd-v0.3.11-1-debian
+Untagged: docker/desktop-kubernetes@sha256:c86a2c3962729d12e51fbb4c8feeefea67778a70a6ffecf3baff3039d80b4cf5
+Deleted: sha256:8b7b9de36bd5f5336bb67cdb6d8e69f9d51cf493f7ab119804aab5fbf2ad5476
+Deleted: sha256:e2fdf2f4ba4c9e700a355750cfe88d8cfbe45cd8f84c204e889a153bb5067677
+Deleted: sha256:f00baeb4982eba4b4f8d743cb913937bfe119b6e61ea51f5a8f40aae172a8df3
+Deleted: sha256:977bf7aa14dddd3f89f7ccc5fe459c41fc99c282acd89e292d4681128ddb3dd9
+Deleted: sha256:e2c213af79c21afd6002ef834c29edbc2950ec6763ecc758c8fd42356e35207b
+Untagged: mickesv/qfstandalone:version1
+Untagged: mickesv/qfstandalone@sha256:ed11f9e2432fc011dfa9d54e115261a87d4ce2bd5ae7c56ef01ce644921c6673
+Deleted: sha256:0a2b031c8a6598de78f25ded7a548192f50cf4d38221630b07c8eb48c1606f02
+Deleted: sha256:4fd1b1ba4da24ddda22c2a38987d193b2cea3e3834cafe719811bbc130253e90
+Deleted: sha256:ef6a535597cf8f45acd40550f45c03b8b32609c1896a6dca50906f0ee5cac4a9
+Deleted: sha256:126ecb48798ed946448b4d7e86e8695101484ded997fba4e0f86dc66bcb67b65
+Deleted: sha256:38cfad4ad308b4ab86fc6187197c3fb16658ef2efb20b076e0d3db306d5c856b
+Deleted: sha256:c8a1ba4de548105ea02515cd4b5f4739546abf7fff4406d12d036d69026f308e
+Deleted: sha256:e122834a79fd0ae1b2d506fcdbaa2301efab28a3f291adb093a8514a5094f1e2
+Deleted: sha256:846928ea7f056a0905f81607cf77f845d5a656db25e0b7feefa20f98b48ca79b
+Deleted: sha256:24302eb7d9085da80f016e7e4ae55417e412fb7e0a8021e95e3b60c67cde557d
+Error response from daemon: conflict: unable to delete ad17574483e2 (must be forced) - image is referenced in multiple repositories
+Error response from daemon: conflict: unable to delete ad17574483e2 (must be forced) - image is referenced in multiple repositories
+Error response from daemon: conflict: unable to delete ad17574483e2 (must be forced) - image is referenced in multiple repositories
+Error response from daemon: conflict: unable to delete ad17574483e2 (must be forced) - image is referenced in multiple repositories
+Error response from daemon: conflict: unable to delete 2bb72c2c69f9 (must be forced) - image is being used by stopped container cdff98266372
+Error response from daemon: conflict: unable to delete 56ce0fd9fb53 (cannot be forced) - image is being used by running container 683e9d955ad7
+Error response from daemon: conflict: unable to delete e874818b3caa (cannot be forced) - image is being used by running container 3e570a26b80a
+Error response from daemon: conflict: unable to delete 7820c83aa139 (cannot be forced) - image is being used by running container d4e62bbc5ee7
+Error response from daemon: conflict: unable to delete 53c535741fb4 (cannot be forced) - image is being used by running container 56e63862eb64
+Error response from daemon: conflict: unable to delete 3861cfcd7c04 (cannot be forced) - image is being used by running container a6ce86e4f910
+Error response from daemon: conflict: unable to delete cbb01a7bd410 (cannot be forced) - image is being used by running container b3c258ec6de8
+Error response from daemon: conflict: unable to delete 556098075b3d (cannot be forced) - image is being used by running container 7b5d6ee3d795
+Error response from daemon: conflict: unable to delete e6f181688397 (cannot be forced) - image is being used by running container 21011e3b7e07
+Error response from daemon: conflict: unable to delete 99f89471f470 (cannot be forced) - image is being used by running container 30727e8d1ed5
+PS C:\Sanjivani\BTH_cloud\bookstore> docker volume rm $(docker volume ls -q)  # Remove all volumes (optional)
+44b998575958f371e7ded46459c0f12809bab850d26c7f86b7d5cf84e5c5e5d2
+73d820501deb9570e9c2abc291cbc6394f902707cbd55245fe1e521dd15a36db
+574cbd1d84fa8847a5f261707cfbfda71c4332bc8cd1684722cb6673c41749a4
+8014e0a138ac4ca9467db78049a0492a0ba6918079cdeea78792514b424d0ead
+bookstore_postgres_data
+e99f2b569e44e264ff090cd30352e7144dc2bf4c54b80f89f068692e96da8089
+qc-volume
+src
+PS C:\Sanjivani\BTH_cloud\bookstore> docker network rm $(docker network ls -q)  # Remove all networks (optional)
+26256fe78d3c
+Error response from daemon: bridge is a pre-defined network and cannot be removed
+292aa9f1425e
+Error response from daemon: host is a pre-defined network and cannot be removed
+Error response from daemon: none is a pre-defined network and cannot be removed
+PS C:\Sanjivani\BTH_cloud\bookstore> kubectl delete all --all          # Remove all Kubernetes resources (optional)
+pod "books-service-56b764cbb6-6kzl9" deleted
+pod "books-service-56b764cbb6-tvr4z" deleted
+pod "orders-service-5945744566-f9br9" deleted
+pod "orders-service-5945744566-mcv8x" deleted
+pod "postgres-745c8bc55-flkq4" deleted
+service "books-service" deleted
+service "db" deleted
+service "kubernetes" deleted
+service "orders-service" deleted
+deployment.apps "books-service" deleted
+deployment.apps "orders-service" deleted
+deployment.apps "postgres" deleted
+PS C:\Sanjivani\BTH_cloud\bookstore> docker ps -a -q
+PS C:\Sanjivani\BTH_cloud\bookstore>

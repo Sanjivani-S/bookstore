@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: bookstore_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"

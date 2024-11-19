@@ -1,0 +1,49 @@
+## books-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: books
+  template:
+    metadata:
+      labels:
+        app: books
+    spec:
+      containers:
+      - name: books-service
+        image: sgs1/books-service:latest
+        ports:
+        - containerPort: 8001 # Replace with the port used by your books service
+        env: # DONT FORGET THIS. REQUIRED FOR DB CONNECTIVITY
+        - name: DB_NAME # POSTGRES_USER
+          value: bookstore_db # postgres # replace with your user
+        - name: DB_USER  # POSTGRES_PASSWORD
+          value: postgres # postgres_password # replace with your password
+        - name: DB_PASSWORD # POSTGRES_DB
+          value: postgres_password # bookstore_db # replace with your database name
+        - name: DB_HOST # hostname for the SERVICE in kubernetes
+          value: postgres-host   # localhost - does not work with docker
+        - name: DB_PORT # default postgres port
+          value: '5432'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: books-service
+spec:
+  selector:
+    app: books
+  ports:
+    - protocol: TCP
+      port: 8000 
+      #3000 -- changed to 8000 as thts the number in dockerfile to build image
+      # command: python manage.py runserver 0.0.0.0:8000 -- in dockerfile
+      nodePort: 30001
+      #targetPort: 8000 # should i change this to nodeport?
+      name: http 
+  type: LoadBalancer

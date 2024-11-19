@@ -1,0 +1,41 @@
+## Running for orders-service now. confirm books-service is commented out.
+version: '3.8'
+services:
+  postgres_host:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: bookstore_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # books-service:
+  #   image: books-service
+  #   build: .
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   environment:
+  #     - DJANGO_SETTINGS_MODULE=bookstore.settings
+  #     - DB_HOST=postgres_host
+  # #    - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+  #   depends_on:
+  #     - postgres_host
+  #   ports:
+  #     - "8001:8000"  # Maps container port 8000 to host port 8001
+
+  orders-service:
+    image: orders-service
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=bookstore.settings
+      - DB_HOST=postgres_host
+    depends_on:
+      - postgres_host
+    ports:
+      - "8002:8000"  # Maps container port 8000 to host port 8002
+
+volumes:
+  postgres_data:
